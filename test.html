@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>My First OpenTok</title>
+  <style type="text/css">
+  </style>
+  <script src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js" ></script>
+</head>
+<body>
+	<script type="text/javascript">
+	  var apiKey    = "39873712";
+	  var sessionId = "2_MX4zOTg3MzcxMn4xMjcuMC4wLjF-U2F0IEF1ZyAzMSAwMzo1NTo0MiBQRFQgMjAxM34wLjE5OTMxNDg5fg";
+	  var token     = "T1==cGFydG5lcl9pZD0zOTg3MzcxMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz0zMDk1NGZjYjY1ODg3MDBmNWFlZDhlODQzNGQzZmY3YjIzNTM5Njc5OnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9Ml9NWDR6T1RnM016Y3hNbjR4TWpjdU1DNHdMakYtVTJGMElFRjFaeUF6TVNBd016bzFOVG8wTWlCUVJGUWdNakF4TTM0d0xqRTVPVE14TkRnNWZnJmNyZWF0ZV90aW1lPTEzNzc5NDY1Nzcmbm9uY2U9MC41Njg5ODMwNTA1MjcyJmV4cGlyZV90aW1lPTEzNzgwMzI5NzgmY29ubmVjdGlvbl9kYXRhPQ==";
+ 
+	  function sessionConnectedHandler (event) {
+	     session.publish( publisher );
+	     subscribeToStreams(event.streams);
+	  }
+	  function subscribeToStreams(streams) {
+	    for (var i = 0; i < streams.length; i++) {
+	        var stream = streams[i];
+	        if (stream.connection.connectionId 
+	               != session.connection.connectionId) {
+	            session.subscribe(stream);
+	        }
+	    }
+	  }
+	  function streamCreatedHandler(event) {
+	    subscribeToStreams(event.streams);
+	  }
+ 
+	  var publisher = TB.initPublisher(apiKey);
+	  var session   = TB.initSession(sessionId);
+ 
+	  session.connect(apiKey, token);
+	  session.addEventListener("sessionConnected", 
+	                           sessionConnectedHandler);
+ 
+	  session.addEventListener("streamCreated", 
+	                           streamCreatedHandler);
+	</script>
+</body>
+</html>
