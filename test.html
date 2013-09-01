@@ -23,7 +23,7 @@
 	        var stream = streams[i];
 	        if (stream.connection.connectionId 
 	               != session.connection.connectionId) {
-	            session.subscribe(stream);
+	            session.subscribe(stream, {width:500, height:400});
 	        }
 	    }
 	  }
@@ -31,7 +31,7 @@
 	    subscribeToStreams(event.streams);
 	  }
  
-	  var publisher = TB.initPublisher(apiKey);
+	  var publisher = TB.initPublisher(apiKey, {width:500, height:400});
 	  var session   = TB.initSession(sessionId);
  
 	  session.connect(apiKey, token);
